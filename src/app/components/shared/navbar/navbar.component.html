@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <button mat-icon-button (click)="toggleSidenav.emit()" class="mobile-toggle">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="brand">Company HRMS</span>
+  <span class="spacer"></span>
+  <div class="profile" *ngIf="auth.current">
+    <mat-icon>account_circle</mat-icon>
+    <span>{{ auth.current?.name }}</span>
+    <button mat-icon-button (click)="logout()" aria-label="Logout">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

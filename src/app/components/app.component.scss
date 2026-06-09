@@ -1,0 +1,7 @@
+.app-sidenav-container { height: 100vh; }
+.app-sidenav { width: 240px; background: white; }
+.app-content { padding: 16px; }
+
+@media(max-width: 800px){
+  .app-sidenav { display:none; }
+}

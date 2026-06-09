@@ -1,0 +1,9 @@
+.app-toolbar { position: sticky; top: 0; z-index: 10; }
+.brand { font-weight:600; }
+.spacer { flex:1 1 auto; }
+.mobile-toggle { display:none; }
+.profile { display:flex; align-items:center; gap:8px; }
+
+@media(max-width:800px){
+  .mobile-toggle { display:inline-flex; }
+}

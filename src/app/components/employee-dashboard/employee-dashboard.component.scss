@@ -1,0 +1,9 @@
+.grid { display:grid; grid-template-columns: 1fr; gap:16px; }
+.welcome-card, .leave-card, .history-card { border-radius:12px; }
+.spacer { flex: 1 1 auto; }
+.selected { margin-top:8px; }
+
+@media(min-width:900px){
+  .grid { grid-template-columns: 1fr 1fr; }
+  .history-card { grid-column: 1 / -1; }
+}

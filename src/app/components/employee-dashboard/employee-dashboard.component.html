@@ -1,0 +1,53 @@
+<div class="employee-shell app-container">
+  <mat-toolbar color="primary">Employee Dashboard
+    <span class="spacer"></span>
+    <span>{{ current?.name }} — {{ current?.department }}</span>
+  </mat-toolbar>
+
+  <div class="grid">
+    <mat-card class="welcome-card">
+      <mat-card-title>Welcome, {{ current?.name }}</mat-card-title>
+      <mat-card-content>
+        <p>Department: {{ current?.department }}</p>
+        <mat-form-field>
+          <mat-label>Month</mat-label>
+          <mat-select formControlName="month">
+            <mat-option *ngFor="let m of months" [value]="m">{{ m }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="leave-card">
+      <mat-card-title>Request Leave</mat-card-title>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Select date</mat-label>
+          <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="selected">
+          <div *ngFor="let d of selectedDates">{{ d | date }}</div>
+        </div>
+
+        <div class="actions">
+          <button mat-flat-button color="primary" (click)="addSelected()">Submit Leave</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="history-card">
+      <mat-card-title>Leave History</mat-card-title>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let l of (leaves$ | async)">
+            <div mat-line>{{ l.employeeName }} — {{ l.date | date }}</div>
+            <div mat-line>Status: {{ l.status }}</div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

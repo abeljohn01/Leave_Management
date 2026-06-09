@@ -1,0 +1,12 @@
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav #s mode="side" class="app-sidenav" opened>
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-navbar (toggleSidenav)="s.toggle()"></app-navbar>
+    <div class="app-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
