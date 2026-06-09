@@ -1,7 +1,23 @@
-.app-sidenav-container { height: 100vh; }
-.app-sidenav { width: 240px; background: white; }
-.app-content { padding: 16px; }
+.app-sidenav-container {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
 
-@media(max-width: 800px){
-  .app-sidenav { display:none; }
+.app-sidenav {
+  width: 260px;
+  min-width: 260px;
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.app-content {
+  padding: 16px;
+  min-width: 0;
+}
+
+@media(max-width: 960px) {
+  .app-sidenav {
+    display: none;
+  }
 }

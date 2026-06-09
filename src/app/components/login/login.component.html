@@ -1,24 +1,24 @@
 <div class="login-shell">
   <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Company HR Portal</mat-card-title>
+      <mat-card-title>H&amp;R BLOCK HR Portal</mat-card-title>
       <mat-card-subtitle>Professional Login</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="login()">
         <mat-form-field appearance="fill" class="full">
-          <mat-label>Select Employee</mat-label>
-          <mat-select formControlName="employeeId">
-            <mat-option *ngFor="let e of employees" [value]="e.id">{{ e.name }} — {{ e.department }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="full">
           <mat-label>Role</mat-label>
           <mat-select formControlName="role">
             <mat-option value="employee">Employee Login</mat-option>
             <mat-option value="manager">Manager Login</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full" *ngIf="form.value.role === 'employee'">
+          <mat-label>Select Employee</mat-label>
+          <mat-select formControlName="employeeId">
+            <mat-option *ngFor="let e of employees" [value]="e.id">{{ e.name }} — {{ e.department }}</mat-option>
           </mat-select>
         </mat-form-field>
 

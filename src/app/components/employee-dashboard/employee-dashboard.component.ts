@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
@@ -11,14 +12,13 @@ import { LeaveService } from '../../services/leave.service';
 })
 export class EmployeeDashboardComponent {
   current = this.auth.current;
-  months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
   form = this.fb.group({
-    month: [''],
     dates: [[], Validators.required],
   });
 
-  leaves$ = this.leaveService.leaves$;
+  leaves$ = this.leaveService.leaves$.pipe(
+    map((leaves) => leaves.filter((leave) => leave.employeeId === this.current?.id))
+  );
 
   selectedDates: Date[] = [];
 

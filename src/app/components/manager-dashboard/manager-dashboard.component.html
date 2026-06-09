@@ -1,5 +1,13 @@
 <div class="manager-shell app-container">
-  <mat-toolbar color="primary">Manager Dashboard</mat-toolbar>
+  <mat-toolbar color="primary">
+    <span>Manager Dashboard</span>
+    <span class="section-tabs">
+      <button mat-button [color]="section === 'overview' ? 'accent' : ''" (click)="switchSection('overview')">Overview</button>
+      <button mat-button [color]="section === 'employees' ? 'accent' : ''" (click)="switchSection('employees')">Employees</button>
+      <button mat-button [color]="section === 'requests' ? 'accent' : ''" (click)="switchSection('requests')">Leave Requests</button>
+      <button mat-button [color]="section === 'reports' ? 'accent' : ''" (click)="switchSection('reports')">Reports</button>
+    </span>
+  </mat-toolbar>
 
   <div class="panels">
     <mat-card class="stats">
@@ -8,48 +16,73 @@
         <div class="stat-grid">
           <mat-card class="stat-card"><h3>Total Employees</h3><div>{{ employees.length }}</div></mat-card>
           <mat-card class="stat-card"><h3>Total Leaves</h3><div>{{ (leaves$ | async)?.length }}</div></mat-card>
-          <mat-card class="stat-card"><h3>Pending</h3><div>{{ (leaves$ | async)?.filter(l => l.status==='pending').length }}</div></mat-card>
+          <mat-card class="stat-card"><h3>Pending</h3><div>{{ pendingCount$ | async }}</div></mat-card>
+          <mat-card class="stat-card"><h3>Approved</h3><div>{{ approvedCount$ | async }}</div></mat-card>
         </div>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="requests">
-      <mat-card-title>Leave Requests</mat-card-title>
+    <mat-card class="section-card">
+      <mat-card-title>{{ section | titlecase }}</mat-card-title>
       <mat-card-content>
-        <table mat-table [dataSource]="leaves$ | async" class="mat-elevation-z8">
-          <ng-container matColumnDef="employeeName">
-            <th mat-header-cell *matHeaderCellDef>Employee</th>
-            <td mat-cell *matCellDef="let row">{{ row.employeeName }}</td>
-          </ng-container>
+        <div *ngIf="section === 'overview'">
+          <p>Use the tabs to review employees, pending requests, and reports.</p>
+          <p>Total employees: {{ employees.length }}</p>
+          <p>Pending leaves: {{ pendingCount$ | async }}</p>
+          <p>Approved leaves: {{ approvedCount$ | async }}</p>
+        </div>
 
-          <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>Date</th>
-            <td mat-cell *matCellDef="let row">{{ row.date | date }}</td>
-          </ng-container>
+        <div *ngIf="section === 'employees'">
+          <mat-list>
+            <mat-list-item *ngFor="let employee of employees">
+              <div mat-line>{{ employee.name }}</div>
+              <div mat-line>{{ employee.department }}</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
 
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let row">{{ row.status }}</td>
-          </ng-container>
+        <div *ngIf="section === 'requests'">
+          <table mat-table [dataSource]="leaves$ | async" class="mat-elevation-z8">
+            <ng-container matColumnDef="employeeName">
+              <th mat-header-cell *matHeaderCellDef>Employee</th>
+              <td mat-cell *matCellDef="let row">{{ row.employeeName }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let row">
-              <button mat-button color="primary" (click)="approve(row.id)">Approve</button>
-              <button mat-button color="warn" (click)="reject(row.id)">Reject</button>
-            </td>
-          </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Date</th>
+              <td mat-cell *matCellDef="let row">{{ row.date | date }}</td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="calendar">
-      <mat-card-title>Leave Calendar</mat-card-title>
-      <mat-card-content>
-        <div *ngFor="let g of (leaves$ | async) | slice:0:12">
-          <div>{{ g.date | date:'mediumDate' }} — {{ g.employeeName }} ({{ g.status }})</div>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-button color="primary" (click)="approve(row.id)">Approve</button>
+                <button mat-button color="warn" (click)="reject(row.id)">Reject</button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+
+        <div *ngIf="section === 'reports'">
+          <div class="report-block">
+            <h3>Leave Request Summary</h3>
+            <p>Total leave requests: {{ (leaves$ | async)?.length }}</p>
+            <p>Pending: {{ pendingCount$ | async }}</p>
+            <p>Approved: {{ approvedCount$ | async }}</p>
+          </div>
+          <div class="report-block">
+            <h3>Employee coverage</h3>
+            <p>Active employees: {{ employees.length }}</p>
+            <p>Requests per employee shown in the table below.</p>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>

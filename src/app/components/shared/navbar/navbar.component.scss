@@ -1,9 +1,49 @@
-.app-toolbar { position: sticky; top: 0; z-index: 10; }
-.brand { font-weight:600; }
-.spacer { flex:1 1 auto; }
-.mobile-toggle { display:none; }
-.profile { display:flex; align-items:center; gap:8px; }
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 16px;
+  min-height: 64px;
+}
 
-@media(max-width:800px){
-  .mobile-toggle { display:inline-flex; }
+.brand {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 180px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mobile-toggle {
+  display: none;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.profile span {
+  white-space: nowrap;
+}
+
+@media(max-width: 960px) {
+  .mobile-toggle {
+    display: inline-flex;
+  }
+
+  .profile {
+    gap: 4px;
+  }
 }

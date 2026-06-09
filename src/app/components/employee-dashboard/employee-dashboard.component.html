@@ -9,12 +9,6 @@
       <mat-card-title>Welcome, {{ current?.name }}</mat-card-title>
       <mat-card-content>
         <p>Department: {{ current?.department }}</p>
-        <mat-form-field>
-          <mat-label>Month</mat-label>
-          <mat-select formControlName="month">
-            <mat-option *ngFor="let m of months" [value]="m">{{ m }}</mat-option>
-          </mat-select>
-        </mat-form-field>
       </mat-card-content>
     </mat-card>
 

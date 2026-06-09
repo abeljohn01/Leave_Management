@@ -1,7 +1,7 @@
 @use '@angular/material' as mat;
 
-$primary: mat.define-palette(mat.$indigo-palette, 600);
-$accent: mat.define-palette(mat.$blue-palette, A200);
+$primary: mat.define-palette(mat.$green-palette, 600);
+$accent: mat.define-palette(mat.$teal-palette, A400);
 
 $theme: mat.define-light-theme((
   color: (
@@ -15,7 +15,7 @@ $theme: mat.define-light-theme((
 
 body {
   font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: #f5f7fb;
+  background: #eef7ef;
   margin: 0;
 }
 

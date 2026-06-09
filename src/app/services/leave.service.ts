@@ -44,12 +44,16 @@ export class LeaveService {
   }
 
   approveLeave(id: string) {
-    const updated = this._leaves.value.map((l) => (l.id === id ? { ...l, status: 'approved' } : l));
+    const updated = this._leaves.value.map((l) =>
+      l.id === id ? ({ ...l, status: 'approved' } as LeaveRequest) : l
+    );
     this._leaves.next(updated);
   }
 
   rejectLeave(id: string) {
-    const updated = this._leaves.value.map((l) => (l.id === id ? { ...l, status: 'rejected' } : l));
+    const updated = this._leaves.value.map((l) =>
+      l.id === id ? ({ ...l, status: 'rejected' } as LeaveRequest) : l
+    );
     this._leaves.next(updated);
   }
 }

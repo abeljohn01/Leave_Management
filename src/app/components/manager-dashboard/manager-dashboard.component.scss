@@ -1,6 +1,10 @@
 .panels { display:grid; gap:16px; }
 .stat-grid { display:flex; gap:12px; flex-wrap:wrap; }
 .stat-card { padding:12px; min-width:140px; border-radius:10px; }
+.section-card { border-radius: 12px; }
+.report-block { margin-bottom: 16px; }
+.section-tabs button { min-width: 120px; }
+
 table { width:100%; }
 
 @media(min-width:900px){
